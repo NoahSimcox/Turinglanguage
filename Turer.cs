@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public class Turer
+class Turer
 {
     public static void Main (string[] args) 
     {
