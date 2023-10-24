@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 class Turer
@@ -7,17 +9,18 @@ class Turer
   
     public static void Main (string[] args)
     {
-
+        Stopwatch time = new Stopwatch();
+        time.Start();
+        
         //important variables
         List<int> tape = new List<int>();
         tape.Add(0);
         int pointer = 0;
-      
-
-        Console.WriteLine("Start Coding:");
+        
 
         //Handles Readline and unbalanced parenthesis
-        char[] chararr = Console.ReadLine().ToCharArray();
+        string chararr = "";
+        Array.ForEach(File.ReadLines("C:\\Users\\Noah Simcox\\RiderProjects\\TuringLanguage\\TuringLanguage\\code.cerb").ToArray(), x => chararr += x);
         int check = 0;
         Stack<int> opens = new Stack<int>();
         Dictionary<int, int> parenPairs = new Dictionary<int, int>();
@@ -31,10 +34,10 @@ class Turer
 
           if (chararr[i] == ')')
           { 
-            parenPairs.Add(opens.Pop(), i);
-            check--; 
+              parenPairs.Add(opens.Pop(), i);
+              check--; 
             
-            if (check != 0)
+            if (i + 1 == chararr.Length && check != 0)
             {
               throw new InvalidOperationException("The program has an unbalanced parenthesis");
             }       
@@ -91,5 +94,16 @@ class Turer
             }
             count++;
         }
+        time.Stop();
+        TimeSpan ts = time.Elapsed;
+
+        // Format and display the TimeSpan value.
+        string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+            ts.Hours, ts.Minutes, ts.Seconds,
+            ts.Milliseconds);
+        Console.WriteLine("RunTime " + elapsedTime);
     }
 }
+/*>++++++++(<+++++++++++++>-) h
+>+++++++(<+++++++++++++++>-) i
+++++++++++(>++++++++++(>++++++++++(>++++++++++(>++++++++++(>++++++++++ (<<<<<<<|>|>>>>>>-) <-)<-)<-)<-)<-)*/
